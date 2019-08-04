@@ -17,7 +17,7 @@ type Provider interface {
 	ServiceStats() (*SiteStatistics, error)
 
 	// PinContent pins a provided file to this provider.
-	PinContent(string, io.Reader) (string, error)
+	PinContent(string, io.Reader, *ContentOpts) (string, error)
 
 	// Pin pins an existing IPFS hash to this provider.
 	Pin(string) error
@@ -27,6 +27,12 @@ type Provider interface {
 
 	// GatewayURL returns a gateway URL for an IPFS hash.
 	GatewayURL(string) (string, error)
+}
+
+// ContentOpts are options for storing content
+type ContentOpts struct {
+	// StoreInDirectory will store the content in a directory if true
+	StoreInDirectory bool
 }
 
 // ItemStatistics is a structure for a piece of IPFS content.
